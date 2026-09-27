@@ -1,0 +1,105 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="text-cyan fw-bold mb-0">💡 NASA HRP PROTOCOL RECOMMENDATIONS</h3>
+        <small class="text-muted-custom">Targeted Biomedical Countermeasures for 3 Neural Stressors</small>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-outline-info btn-sm fw-bold">← BACK TO DASHBOARD</a>
+</div>
+
+<!-- Active Diagnostic Summary -->
+<div class="dash-card border-info mb-4">
+    <div class="metric-header text-cyan">CURRENT DIAGNOSTIC STATE</div>
+    <h4 class="text-white mt-1">{% if eeg_data %}{{ eeg_data.status }}{% else %}Baseline Assessment Needed{% endif %}</h4>
+    <p class="text-warning mb-0">
+        <strong>Primary Prescription:</strong> {% if eeg_data %}{{ eeg_data.recommendation }}{% else %}Complete EEG diagnostic scan to trigger specific therapeutic protocols.{% endif %}
+    </p>
+</div>
+
+<!-- Detailed Recommendations Grid for 3 Challenges -->
+<div class="row g-3">
+    <!-- Challenge 1: Circadian Misalignment -->
+    <div class="col-md-4">
+        <div class="dash-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-warning text-dark fw-bold">CHALLENGE 1</span>
+                <small class="text-info">Alpha/Theta Band Sync</small>
+            </div>
+            <h5 class="text-white fw-bold">Circadian Alignment Protocol</h5>
+            <hr class="border-secondary">
+            
+            <div class="mb-3">
+                <strong class="text-cyan d-block">1. Dynamic Spectrum Lighting (SSLA):</strong>
+                <small class="text-muted-custom">Shift cabin lighting to 460nm Blue-enriched spectrum during shift start to suppress melatonin and attenuate Theta (4-8Hz) drowsiness waves.</small>
+            </div>
+
+            <div class="mb-3">
+                <strong class="text-cyan d-block">2. Exogenous Melatonin Micro-dosing:</strong>
+                <small class="text-muted-custom">Administer 0.5mg fast-release melatonin 30 minutes prior to scheduled sleep window when Theta/Alpha ratio exceeds 0.80.</small>
+            </div>
+
+            <div>
+                <strong class="text-cyan d-block">3. Sleep Phase Shifting Protocol:</strong>
+                <small class="text-muted-custom">Enforce strict 8-hour sleep hygiene in sound-isolated sleep quarters with active noise cancellation.</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge 2: Isolation Stress & Emotional Fatigue -->
+    <div class="col-md-4">
+        <div class="dash-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-danger fw-bold">CHALLENGE 2</span>
+                <small class="text-info">FAA Index Recovery</small>
+            </div>
+            <h5 class="text-white fw-bold">Isolation Stress & FAA Countermeasure</h5>
+            <hr class="border-secondary">
+
+            <div class="mb-3">
+                <strong class="text-cyan d-block">1. Binaural Neuro-Stimulation:</strong>
+                <small class="text-muted-custom">10Hz Alpha auditory beat entrainment to restore Frontal Alpha Asymmetry (FAA) balance between F3 and F4 frontal lobes.</small>
+            </div>
+
+            <div class="mb-3">
+                <strong class="text-cyan d-block">2. Virtual Reality Nature Immersion:</strong>
+                <small class="text-muted-custom">20-minute daily immersion in natural Earth VR environments to relieve psychological confinement stress and affective fatigue.</small>
+            </div>
+
+            <div>
+                <strong class="text-cyan d-block">3. Crew Cohesion Sync Task:</strong>
+                <small class="text-muted-custom">Schedule cooperative non-operational social activities to mitigate subjective isolation feelings in deep space missions.</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge 3: Time Perception Distortion -->
+    <div class="col-md-4">
+        <div class="dash-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-info text-dark fw-bold">CHALLENGE 3</span>
+                <small class="text-info">Temporal Estimation</small>
+            </div>
+            <h5 class="text-white fw-bold">Time Perception Resynchronization</h5>
+            <hr class="border-secondary">
+
+            <div class="mb-3">
+                <strong class="text-cyan d-block">1. Temporal Feedback Recalibration:</strong>
+                <small class="text-muted-custom">Perform the 5-second interval time estimation task twice daily to re-anchor cerebellar temporal processing during microgravity adaptation.</small>
+            </div>
+
+            <div class="mb-3">
+                <strong class="text-cyan d-block">2. Cognitive Workload Pacing:</strong>
+                <small class="text-muted-custom">If time perception accelerates (>0.5s variance under stress), mandate 10-minute tactical breathing breaks before high-risk EVA operations.</small>
+            </div>
+
+            <div>
+                <strong class="text-cyan d-block">3. Microgravity Proprioception Exercise:</strong>
+                <small class="text-muted-custom">Engage in dual-task motor training to synchronize vestibular-parietal sensorimotor integration with temporal perception.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

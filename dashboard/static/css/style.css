@@ -1,0 +1,228 @@
+/* dashboard/static/css/style.css */
+:root {
+    --bg-dark: #030611;
+    --card-bg: rgba(9, 14, 28, 0.9);
+    --card-border: #131d35;
+    --neon-cyan: #00f2ff;
+    --neon-blue: #0077ff;
+    --neon-purple: #a855f7;
+    --neon-green: #10b981;
+    --text-bright: #ffffff;
+    --text-muted: #94a3b8;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-bright);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Header */
+.top-header {
+    background: #050917;
+    border-bottom: 1px solid var(--card-border);
+    padding: 10px 20px;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 240px;
+    background: #040713;
+    border-right: 1px solid var(--card-border);
+    min-height: calc(100vh - 60px);
+    padding: 15px 10px;
+}
+
+.nav-item-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    padding: 9px 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.nav-item-link:hover, .nav-item-link.active {
+    background: rgba(0, 242, 255, 0.12);
+    color: var(--neon-cyan);
+    border-left: 3px solid var(--neon-cyan);
+}
+
+/* Team Section in Sidebar */
+.team-section {
+    border-top: 1px solid var(--card-border);
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.team-title {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.team-member {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.team-member strong {
+    color: #fff;
+    display: block;
+}
+
+/* Dashboard Cards */
+.dash-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--neon-cyan);
+    margin-bottom: 4px;
+}
+
+.metric-val {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.metric-val small {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.metric-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.text-muted-custom {
+    color: var(--text-muted) !important;
+}
+
+.text-cyan {
+    color: var(--neon-cyan) !important;
+}
+
+/* Central Brain Hologram Container */
+.brain-box {
+    position: relative;
+    background: radial-gradient(circle at center, rgba(0, 119, 255, 0.12) 0%, rgba(4, 7, 19, 0.95) 75%);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    min-height: 390px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 14px;
+}
+
+.brain-img {
+    width: 250px;
+    height: auto;
+    margin: 10px auto;
+    filter: drop-shadow(0 0 18px rgba(0, 242, 255, 0.45));
+}
+
+/* Overall Health Circle Progress */
+.ring-container {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    border: 6px solid var(--neon-green);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 8px auto;
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.25);
+}
+
+.ring-score {
+    font-size: 2.1rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+}
+
+/* Un-tested State Overlay */
+.lock-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 6, 17, 0.88);
+    backdrop-filter: blur(3px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.bg-purple {
+    background-color: var(--neon-purple) !important;
+}
+
+/* EEG Test Page UI Styling */
+.result-dash-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.result-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.result-main-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.result-sub-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.action-box {
+    background: var(--card-bg);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 0 12px rgba(0, 242, 255, 0.15);
+}

@@ -1,0 +1,123 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <!-- Main EEG Diagnostic Panel -->
+        <div class="result-dash-card p-4">
+            <h3 class="text-cyan fw-bold">EEG BRAINWAVE DIAGNOSTIC TEST</h3>
+            <p class="text-muted-custom small">Analyzing Frontal Alpha Asymmetry (FAA) and Theta/Alpha ratio for Circadian Sync.</p>
+            
+            <button id="run-eeg-btn" class="btn btn-outline-info w-100 py-3 fw-bold mt-2" onclick="executeEEGTest()">RUN LIVE EEG ANALYSIS</button>
+
+            <!-- 5-6 Second Processing Screen -->
+            <div id="eeg-loader" class="text-center my-5 d-none">
+                <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status"></div>
+                <h4 class="mt-3 text-warning">SCANNING NEURAL SPECTRUM...</h4>
+                <p class="text-muted-custom small">Acquiring Frontal (F3/F4) & Occipital Signal Bands...</p>
+            </div>
+
+            <!-- Result Panel (Matching Dashboard UI) -->
+            <div id="eeg-result-panel" class="mt-4 d-none">
+                <div class="row g-3">
+                    <!-- Circadian Alignment Status Card -->
+                    <div class="col-md-6">
+                        <div class="result-dash-card h-100">
+                            <div class="result-card-header">
+                                <span>🌙 CIRCADIAN ALIGNMENT STATUS</span>
+                                <span class="badge bg-dark text-info border border-info">Alpha Sync</span>
+                            </div>
+                            <div id="res-circadian" class="result-main-value text-info mt-2">Optimal Sync (Alpha 8-12Hz Dominant)</div>
+                            
+                            <!-- Progress Bar -->
+                            <div class="progress mt-3" style="height: 5px; background: #131d35;">
+                                <div id="circadian-progress" class="progress-bar bg-info" style="width: 85%;"></div>
+                            </div>
+                            
+                            <div class="result-sub-text">
+                                Theta/Alpha Power Ratio: <strong id="res-ratio" class="text-white">0.45 (Normal)</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Isolation Stress & Fatigue Card -->
+                    <div class="col-md-6">
+                        <div class="result-dash-card h-100">
+                            <div class="result-card-header">
+                                <span style="color: #f59e0b;">🎭 ISOLATION STRESS & FATIGUE</span>
+                                <span class="badge bg-dark text-warning border border-warning">FAA Index</span>
+                            </div>
+                            <div id="res-stress" class="result-main-value text-warning mt-2">Low Stress</div>
+                            
+                            <!-- Progress Bar -->
+                            <div class="progress mt-3" style="height: 5px; background: #131d35;">
+                                <div id="stress-progress" class="progress-bar bg-warning" style="width: 25%;"></div>
+                            </div>
+
+                            <div class="result-sub-text">
+                                Frontal Alpha Asymmetry Index: <strong id="res-faa" class="text-white">+0.18 (Normal Left/Right Asymmetry)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NASA Action Recommendation Box -->
+                <div class="action-box mt-3">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="fs-5">💡</span>
+                        <span class="fw-bold text-cyan" style="font-size: 0.85rem; letter-spacing: 0.5px;">NASA HRP RECOMMENDED ACTION</span>
+                    </div>
+                    <div id="res-rec" class="fs-6 text-white fw-bold">
+                        Peak Performance Clearance: Continue standard 24h cycle operations.
+                    </div>
+                    <div class="mt-3 pt-2 border-top border-secondary d-flex justify-content-between align-items-center">
+                        <small class="text-muted-custom">Status verified via Open NASA HRP Guidelines</small>
+                        <a href="{% url 'home' %}" class="btn btn-sm btn-info fw-bold">VIEW IN MAIN DASHBOARD →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function executeEEGTest() {
+    const btn = document.getElementById('run-eeg-btn');
+    const loader = document.getElementById('eeg-loader');
+    const resultPanel = document.getElementById('eeg-result-panel');
+
+    btn.disabled = true;
+    resultPanel.classList.add('d-none');
+    loader.classList.remove('d-none');
+
+    // 5.5 Seconds Processing Delay
+    setTimeout(() => {
+        fetch('/api/simulate-eeg/')
+            .then(res => res.json())
+            .then(data => {
+                loader.classList.add('d-none');
+                btn.disabled = false;
+
+                document.getElementById('res-circadian').innerText = data.circadian;
+                document.getElementById('res-ratio').innerText = data.theta_alpha_ratio;
+                document.getElementById('res-stress').innerText = data.stress_level;
+                document.getElementById('res-faa').innerText = data.faa_val;
+                document.getElementById('res-rec').innerText = data.recommendation;
+
+                if (data.overall_score < 50) {
+                    document.getElementById('circadian-progress').style.width = "35%";
+                    document.getElementById('stress-progress').style.width = "85%";
+                    document.getElementById('stress-progress').className = "progress-bar bg-danger";
+                } else {
+                    document.getElementById('circadian-progress').style.width = "85%";
+                    document.getElementById('stress-progress').style.width = "25%";
+                    document.getElementById('stress-progress').className = "progress-bar bg-warning";
+                }
+
+                resultPanel.classList.remove('d-none');
+            });
+    }, 5500);
+}
+</script>
+
+{% endblock %}

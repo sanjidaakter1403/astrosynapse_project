@@ -1,0 +1,59 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card p-4 text-center">
+            <h3 class="text-info">Time Perception Estimation Task</h3>
+            <p class="text-secondary">Instructions: Press <strong>START</strong>, count exactly <strong>5.00 seconds</strong> in your mind without counting out loud, then press <strong>STOP</strong>.</p>
+            
+            <div class="my-4">
+                <button id="start-task-btn" class="btn btn-success btn-lg me-2" onclick="startTimer()">START</button>
+                <button id="stop-task-btn" class="btn btn-danger btn-lg" onclick="stopTimer()" disabled>STOP</button>
+            </div>
+
+            <div id="game-results" class="mt-4 d-none alert alert-dark">
+                <h4>Actual Elapsed Time: <span id="elapsed-time" class="text-warning">0.00</span> seconds</h4>
+                <p>Target: <strong>5.00s</strong> | Variance: <span id="variance">0.00</span>s</p>
+                <div id="perception-assessment" class="fw-bold"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let startTime = 0;
+
+function startTimer() {
+    startTime = performance.now();
+    document.getElementById('start-task-btn').disabled = true;
+    document.getElementById('stop-task-btn').disabled = false;
+    document.getElementById('game-results').classList.add('d-none');
+}
+
+function stopTimer() {
+    const endTime = performance.now();
+    const elapsed = ((endTime - startTime) / 1000).toFixed(2);
+    const variance = (elapsed - 5.00).toFixed(2);
+
+    document.getElementById('start-task-btn').disabled = false;
+    document.getElementById('stop-task-btn').disabled = true;
+
+    document.getElementById('elapsed-time').innerText = elapsed;
+    document.getElementById('variance').innerText = (variance > 0 ? "+" : "") + variance;
+
+    const assessment = document.getElementById('perception-assessment');
+    if (Math.abs(variance) <= 0.4) {
+        assessment.className = "text-success fw-bold";
+        assessment.innerText = "Nominal Temporal Perception: High cognitive accuracy.";
+    } else if (variance > 0.4) {
+        assessment.className = "text-warning fw-bold";
+        assessment.innerText = "Time Perception Slowdown (Overestimation): Mild cognitive fatigue detected.";
+    } else {
+        assessment.className = "text-danger fw-bold";
+        assessment.innerText = "Time Perception Acceleration (Underestimation): Elevated stress / impulse rush detected.";
+    }
+
+    document.getElementById('game-results').classList.remove('d-none');
+}
+</script>
+{% endblock %}

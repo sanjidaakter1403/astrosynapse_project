@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>AstroSynapse </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <header class="top-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <span class="brand-title text-cyan fw-bold fs-4">AstroSynapse</span>
+            <small class="ms-3 text-muted-custom" style="font-size:0.75rem;">REAL-TIME NEURO MONITORING FOR ASTRONAUTS</small>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-success">● LIVE</span>
+            <small class="text-info">Sep 27, 2026 | UTC 14:32:18</small>
+            <div class="text-end border-start ps-3 border-secondary">
+                <small class="d-block text-white fw-bold">Astronaut</small>
+                <small class="text-muted-custom" style="font-size:0.7rem;">Deep Space</small>
+            </div>
+        </div>
+    </header>
+
+    <div class="d-flex">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="{% url 'home' %}" class="nav-item-link">🏠 Dashboard</a>
+            <a href="{% url 'eeg_analyzer' %}" class="nav-item-link">🧠 EEG Test</a>
+            <a href="{% url 'time_perception' %}" class="nav-item-link">🎮 Reaction Test</a>
+            <a href="{% url 'recommendations' %}" class="nav-item-link">💡 Recommendations</a>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow-1 p-3">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+</body>
+</html>

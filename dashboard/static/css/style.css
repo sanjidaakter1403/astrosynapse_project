@@ -191,3 +191,110 @@ body {
         font-size: 1.1rem;
     }
 }
+:root {
+    --bg-dark: #070b19;
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --border-color: rgba(56, 189, 248, 0.2);
+    --neon-blue: #38bdf8;
+    --neon-cyan: #22d3ee;
+    --neon-green: #10b981;
+    --neon-yellow: #f59e0b;
+    --neon-red: #ef4444;
+    --text-muted: #94a3b8;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #f1f5f9;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Top Header */
+.top-header {
+    background: rgba(11, 17, 32, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.8rem 1rem;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    min-width: 220px;
+    min-height: calc(100vh - 60px);
+    background: rgba(11, 17, 32, 0.9);
+    border-right: 1px solid var(--border-color);
+    padding: 1rem 0.5rem;
+}
+
+.nav-item-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+.nav-item-link:hover, .nav-item-link.active {
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--neon-cyan);
+}
+
+/* Main Content Area Fix */
+.main-content-area {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+/* Cards & Responsive Layout */
+.dash-card, .result-dash-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    word-wrap: break-word;
+}
+
+.metric-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.metric-val {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+/* Mobile Media Query Fixes */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none !important; /* Hide sidebar completely on mobile */
+    }
+
+    .main-content-area {
+        width: 100% !important;
+        padding: 0.75rem !important;
+    }
+
+    h3 {
+        font-size: 1.2rem !important;
+    }
+
+    h4, h5 {
+        font-size: 1rem !important;
+    }
+
+    .dash-card {
+        padding: 0.85rem !important;
+    }
+}

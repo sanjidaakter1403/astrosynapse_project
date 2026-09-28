@@ -1,20 +1,31 @@
 {% extends 'dashboard/base.html' %}
 {% block content %}
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="card p-4 text-center">
-            <h3 class="text-info">Time Perception Estimation Task</h3>
-            <p class="text-secondary">Instructions: Press <strong>START</strong>, count exactly <strong>5.00 seconds</strong> in your mind without counting out loud, then press <strong>STOP</strong>.</p>
+    <div class="col-lg-8 offset-lg-2">
+        <div class="dash-card p-4 text-center">
+            <h3 class="text-cyan fw-bold">⏱ Time Perception Estimation Task</h3>
+            <!-- টেক্সট স্পষ্ট করার জন্য text-info opacity-75 ক্লাস যুক্ত করা হয়েছে -->
+            <p class="text-info opacity-75 small my-3">
+                Microgravity and stress can warp psychological time perception. 
+                Count exactly <strong class="text-white">5.00 seconds</strong> mentally without visual aids.
+            </p>
             
-            <div class="my-4">
-                <button id="start-task-btn" class="btn btn-success btn-lg me-2" onclick="startTimer()">START</button>
-                <button id="stop-task-btn" class="btn btn-danger btn-lg" onclick="stopTimer()" disabled>STOP</button>
+            <div class="my-4 py-2">
+                <button id="start-task-btn" class="btn btn-success btn-lg px-5 me-3 fw-bold" onclick="startTimer()">START TIMER</button>
+                <button id="stop-task-btn" class="btn btn-danger btn-lg px-5 fw-bold" onclick="stopTimer()" disabled>STOP</button>
             </div>
 
-            <div id="game-results" class="mt-4 d-none alert alert-dark">
-                <h4>Actual Elapsed Time: <span id="elapsed-time" class="text-warning">0.00</span> seconds</h4>
-                <p>Target: <strong>5.00s</strong> | Variance: <span id="variance">0.00</span>s</p>
-                <div id="perception-assessment" class="fw-bold"></div>
+            <!-- স্ট্যাটাস মেসেজ -->
+            <div id="running-status" class="text-warning fw-bold d-none my-2">
+                ⏳ Timer is running... Count 5 seconds mentally and press STOP!
+            </div>
+
+            <!-- রেজাল্ট প্যানেল -->
+            <div id="game-results" class="mt-4 d-none p-4 rounded bg-dark border border-info">
+                <h4 class="text-white">Actual Elapsed Time: <span id="elapsed-time" class="text-cyan fw-bold">0.00</span>s</h4>
+                <p class="text-info opacity-75 mb-2">Target: <strong class="text-white">5.00s</strong> | Variance: <span id="variance" class="text-warning fw-bold">0.00</span>s</p>
+                <hr class="border-secondary my-3">
+                <div id="perception-assessment" class="fw-bold fs-5"></div>
             </div>
         </div>
     </div>
@@ -27,7 +38,10 @@ function startTimer() {
     startTime = performance.now();
     document.getElementById('start-task-btn').disabled = true;
     document.getElementById('stop-task-btn').disabled = false;
+    
+    // হাইড বা রিমুভ স্ক্রিন ইলিমেন্ট আপডেট
     document.getElementById('game-results').classList.add('d-none');
+    document.getElementById('running-status').classList.remove('d-none');
 }
 
 function stopTimer() {
@@ -37,6 +51,7 @@ function stopTimer() {
 
     document.getElementById('start-task-btn').disabled = false;
     document.getElementById('stop-task-btn').disabled = true;
+    document.getElementById('running-status').classList.add('d-none');
 
     document.getElementById('elapsed-time').innerText = elapsed;
     document.getElementById('variance').innerText = (variance > 0 ? "+" : "") + variance;
@@ -44,13 +59,13 @@ function stopTimer() {
     const assessment = document.getElementById('perception-assessment');
     if (Math.abs(variance) <= 0.4) {
         assessment.className = "text-success fw-bold";
-        assessment.innerText = "Nominal Temporal Perception: High cognitive accuracy.";
+        assessment.innerText = "🎯 Nominal Temporal Perception: High cognitive calibration.";
     } else if (variance > 0.4) {
         assessment.className = "text-warning fw-bold";
-        assessment.innerText = "Time Perception Slowdown (Overestimation): Mild cognitive fatigue detected.";
+        assessment.innerText = "⏳ Time Perception Slowdown (Overestimation): Mild cognitive fatigue.";
     } else {
         assessment.className = "text-danger fw-bold";
-        assessment.innerText = "Time Perception Acceleration (Underestimation): Elevated stress / impulse rush detected.";
+        assessment.innerText = "⚡ Time Perception Acceleration (Underestimation): High stress / impulse surge.";
     }
 
     document.getElementById('game-results').classList.remove('d-none');

@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-<!-- Top Welcome & Status Bar -->
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
         <h3 class="fw-bold mb-0 text-white">Good Afternoon, Astronaut!</h3>
@@ -16,9 +15,8 @@
 </div>
 
 <div class="row g-2">
-    <!-- Left Column: Circadian & Time Perception Metrics -->
+    <!-- Left Column: Metrics -->
     <div class="col-md-3">
-        <!-- 1. Circadian Alignment / Sleep Quality -->
         <div class="dash-card">
             {% if not eeg_data %}<div class="lock-overlay">🔒 <small class="text-info ms-1">NO EEG DATA</small></div>{% endif %}
             <div class="metric-header"><span style="color: #f59e0b;">🌙 CIRCADIAN ALIGNMENT</span> <span>ⓘ</span></div>
@@ -29,7 +27,6 @@
             <div class="metric-desc">{% if eeg_data %}{{ eeg_data.circadian }}{% else %}Optimal Sync (Alpha 8-12Hz Dominant){% endif %}</div>
         </div>
 
-        <!-- Theta/Alpha Wave Ratio -->
         <div class="dash-card">
             {% if not eeg_data %}<div class="lock-overlay">🔒 <small class="text-info ms-1">NO EEG DATA</small></div>{% endif %}
             <div class="metric-header"><span>📊 THETA / ALPHA RATIO</span> <span>ⓘ</span></div>
@@ -37,7 +34,6 @@
             <div class="metric-desc">Sleepiness & Drowsiness Indicator</div>
         </div>
 
-        <!-- 2. Time Perception & Decision Velocity -->
         <div class="dash-card">
             {% if not eeg_data %}<div class="lock-overlay">🔒 <small class="text-info ms-1">NO EEG DATA</small></div>{% endif %}
             <div class="metric-header"><span style="color: var(--neon-blue);">⏱ TIME PERCEPTION VELOCITY</span> <span>ⓘ</span></div>
@@ -49,9 +45,9 @@
         </div>
     </div>
 
-    <!-- Center Column: Live EEG Brain Model (3 Challenge Lobes) -->
+    <!-- Center Column: 3D Three.js Interactive Brain Hologram -->
     <div class="col-md-6">
-        <div class="brain-box text-center">
+        <div class="brain-box text-center position-relative" style="min-height: 420px; overflow: hidden;">
             {% if not eeg_data %}
             <div class="lock-overlay">
                 <h4 class="text-cyan fw-bold">BRAINWAVE SCAN REQUIRED</h4>
@@ -60,43 +56,40 @@
             </div>
             {% endif %}
 
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-cyan" style="font-size: 0.85rem;">BRAIN ACTIVITY (LIVE EEG BIOMARKERS)</span>
-                <span class="badge bg-success">● LIVE</span>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="fw-bold text-cyan" style="font-size: 0.85rem;">3D NEURAL NETWORK MODEL (INTERACTIVE)</span>
+                <span class="badge bg-success">● LIVE HOLOGRAM</span>
             </div>
 
-            <!-- Central Hologram Model -->
-            <div class="my-2 position-relative">
-                <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Brain Hologram" class="brain-img">
-            </div>
+            <!-- 3D Canvas Target -->
+            <div id="brain-3d-container" style="width: 100%; height: 260px; cursor: grab;"></div>
 
-            <!-- Lobe Data Labels related ONLY to the 3 Challenges -->
-            <div class="row text-start g-2">
+            <!-- Lobe Data Labels -->
+            <div class="row text-start g-2 mt-1">
                 <div class="col-4">
                     <div class="p-2 border border-secondary rounded bg-dark">
-                        <small class="text-info d-block fw-bold">Frontal Lobe (Stress)</small>
-                        <small class="text-info opacity-75 d-block" style="font-size:0.7rem;">{% if eeg_data %}{{ eeg_data.frontal_status }}{% else %}FAA: Normal Asymmetry{% endif %}</small>
+                        <small class="text-info d-block fw-bold">Frontal Lobe</small>
+                        <small class="text-info opacity-75 d-block" style="font-size:0.7rem;">{% if eeg_data %}{{ eeg_data.frontal_status }}{% else %}FAA: Normal{% endif %}</small>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="p-2 border border-secondary rounded bg-dark">
-                        <small class="text-info d-block fw-bold">Temporal Lobe (Time)</small>
-                        <small class="text-info opacity-75 d-block" style="font-size:0.7rem;">Temporal Estimation Optimal</small>
+                        <small class="text-info d-block fw-bold">Temporal Lobe</small>
+                        <small class="text-info opacity-75 d-block" style="font-size:0.7rem;">Time Estimator: Optimal</small>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="p-2 border border-secondary rounded bg-dark">
-                        <small class="text-info d-block fw-bold">Occipital Lobe (Circadian)</small>
-                        <small class="text-info opacity-75 d-block" style="font-size:0.7rem;">{% if eeg_data %}{{ eeg_data.occipital_status }}{% else %}Alpha: 12 µV (24h Sync){% endif %}</small>
+                        <small class="text-info d-block fw-bold">Occipital Lobe</small>
+                        <small class="text-info opacity-75 d-block" style="font-size:0.7rem;">{% if eeg_data %}{{ eeg_data.occipital_status }}{% else %}Alpha: 12 µV{% endif %}</small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Right Column: Isolation Stress & Overall Score -->
+    <!-- Right Column -->
     <div class="col-md-3">
-        <!-- 3. Isolation Stress & Emotional Fatigue -->
         <div class="dash-card">
             {% if not eeg_data %}<div class="lock-overlay">🔒 <small class="text-info ms-1">NO EEG DATA</small></div>{% endif %}
             <div class="metric-header"><span style="color: #ef4444;">🎭 ISOLATION STRESS (FAA)</span> <span>ⓘ</span></div>
@@ -104,7 +97,6 @@
             <div class="metric-desc">Frontal Alpha Asymmetry (FAA Index)</div>
         </div>
 
-        <!-- Mood & Affective State -->
         <div class="dash-card">
             {% if not eeg_data %}<div class="lock-overlay">🔒 <small class="text-info ms-1">NO EEG DATA</small></div>{% endif %}
             <div class="metric-header"><span style="color: var(--neon-cyan);">🧠 EMOTIONAL FATIGUE</span> <span>ⓘ</span></div>
@@ -112,7 +104,6 @@
             <div class="metric-desc">Anhedonic Fatigue & Isolation Reserve</div>
         </div>
 
-        <!-- Overall Cognitive Health Score -->
         <div class="dash-card text-center">
             {% if not eeg_data %}<div class="lock-overlay">🔒 <small class="text-info ms-1">NO EEG DATA</small></div>{% endif %}
             <div class="metric-header justify-content-center">OVERALL ASTRONAUT HEALTH</div>
@@ -121,12 +112,12 @@
                 <small class="text-info opacity-75" style="font-size: 0.65rem;">/ 100</small>
             </div>
             <div class="fw-bold text-success">GOOD</div>
-            <small class="text-info opacity-75 d-block" style="font-size:0.75rem;">3 Challenge Domains Baseline Nominal.</small>
+            <small class="text-info opacity-75 d-block" style="font-size:0.75rem;">3 Challenge Domains Nominal.</small>
         </div>
     </div>
 </div>
 
-<!-- Bottom Section: NASA Recommendations & SEE RECOMMENDATIONS BUTTON -->
+<!-- Bottom Section -->
 <div class="row g-2 mt-1">
     <div class="col-md-5">
         <div class="dash-card">
@@ -147,9 +138,80 @@
                     {% if eeg_data %}{{ eeg_data.recommendation }}{% else %}Run live EEG test to generate personalized light therapy & isolation stress interventions.{% endif %}
                 </div>
             </div>
-            <!-- SEE RECOMMENDATIONS BUTTON -->
             <a href="{% url 'recommendations' %}" class="btn btn-info btn-sm fw-bold px-3 py-2 ms-3 text-nowrap">SEE RECOMMENDATIONS →</a>
         </div>
     </div>
 </div>
+
+<!-- Three.js Interactive Neural Brain Render Script -->
+<script>
+    const container = document.getElementById('brain-3d-container');
+    if (container) {
+        const brainScene = new THREE.Scene();
+        const brainCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const brainRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+        brainRenderer.setSize(container.clientWidth, container.clientHeight);
+        brainRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(brainRenderer.domElement);
+
+        const controls = new THREE.OrbitControls(brainCamera, brainRenderer.domElement);
+        controls.enableDamping = true;
+        controls.enableZoom = false;
+
+        // Neural Network Nodes Representation
+        const brainGroup = new THREE.Group();
+        const nodeCount = 60;
+        const nodes = [];
+
+        const nodeGeo = new THREE.SphereGeometry(0.08, 16, 16);
+        const nodeMat = new THREE.MeshBasicMaterial({ color: 0x22d3ee });
+
+        for (let i = 0; i < nodeCount; i++) {
+            const mesh = new THREE.Mesh(nodeGeo, nodeMat);
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = 1.4 * Math.cbrt(Math.random());
+
+            mesh.position.x = r * Math.sin(phi) * Math.cos(theta) * 1.3;
+            mesh.position.y = r * Math.sin(phi) * Math.sin(theta);
+            mesh.position.z = r * Math.cos(phi) * 0.9;
+
+            nodes.push(mesh.position);
+            brainGroup.add(mesh);
+        }
+
+        // Connect Synapses (Lines)
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 });
+        for (let i = 0; i < nodeCount; i++) {
+            for (let j = i + 1; j < nodeCount; j++) {
+                if (nodes[i].distanceTo(nodes[j]) < 0.95) {
+                    const lineGeo = new THREE.BufferGeometry().setFromPoints([nodes[i], nodes[j]]);
+                    const line = new THREE.Line(lineGeo, lineMat);
+                    brainGroup.add(line);
+                }
+            }
+        }
+
+        brainScene.add(brainGroup);
+        brainCamera.position.z = 4.5;
+
+        function animateBrain() {
+            requestAnimationFrame(animateBrain);
+            brainGroup.rotation.y += 0.005;
+            controls.update();
+            brainRenderer.render(brainScene, brainCamera);
+        }
+        animateBrain();
+
+        window.addEventListener('resize', () => {
+            if (!container) return;
+            brainCamera.aspect = container.clientWidth / container.clientHeight;
+            brainCamera.updateProjectionMatrix();
+            brainRenderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    }
+</script>
 {% endblock %}
